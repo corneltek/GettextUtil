@@ -24,7 +24,7 @@ File Structure
 
 API Synopsis
 ------------
-Step1:
+Parser locale strings into mo files
 
     use GettextUtil\GettextParser;
     $gettext = new GettextParser;
@@ -33,5 +33,17 @@ Step1:
     $gettext->setOutputFile('message.po');
     $success = $gettext->parse();  # get system return value.
 
+To convert po files to mo files:
+
+    use GettextUtil\GettextFormatter;
+    $formatter = new GettextFormatter;
+    $formatter->scan('locale/en...');
+
+Merge Po files:
+
+    use GettextUtil\GettextPoFile;
+    $pofile = new GettextPoFile('messages.po');
+    $target_po = $pofile->mergeTo('path/to/target.po');
+    $target_po->formatMo();   // generate path/to/target.mo
 
 
